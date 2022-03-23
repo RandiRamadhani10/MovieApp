@@ -16,7 +16,11 @@ const ListMovie = ({props}) => {
       {props.data.map((data, index) => {
         return (
           <View key={index} style={[style.containerChild]}>
-            <TouchableOpacity style={[style.poster]}>
+            <TouchableOpacity
+              style={[style.poster]}
+              onPress={() => {
+                props.navigation.navigate('Details', {id: data.id});
+              }}>
               <Image
                 style={[style.img]}
                 source={{uri: `${data.poster_path}`}}
@@ -34,7 +38,11 @@ const ListMovie = ({props}) => {
                 </Text>
               </View>
               <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-                <TouchableOpacity style={[style.button]}>
+                <TouchableOpacity
+                  style={[style.button]}
+                  onPress={() => {
+                    props.navigation.navigate('Details', {id: data.id});
+                  }}>
                   <Text style={[style.textTitle]}>Show More</Text>
                 </TouchableOpacity>
               </View>

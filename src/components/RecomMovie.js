@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 const screen = Dimensions.get('screen');
 const RecomMovie = ({props}) => {
-  console.log(props.filter);
   return (
     <View style={[style.container]}>
       <Text style={[style.text]}>Recomended</Text>
@@ -20,7 +19,12 @@ const RecomMovie = ({props}) => {
         indicatorStyle={'white'}>
         {props.filter.map((data, index) => {
           return (
-            <TouchableOpacity key={index} style={[style.poster]}>
+            <TouchableOpacity
+              key={index}
+              style={[style.poster]}
+              onPress={() => {
+                props.navigation.navigate('Details', {id: data.id});
+              }}>
               <Image
                 key={index}
                 style={[style.img]}

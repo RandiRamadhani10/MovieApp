@@ -12,6 +12,8 @@ target 'MovieApp' do
     :hermes_enabled => false
   )
 
+  pod 'RNShare', :path => '../node_modules/react-native-share'
+
   target 'MovieAppTests' do
     inherit! :complete
     # Pods for testing

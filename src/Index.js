@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './screens/Home';
 import Details from './screens/Details';
+import Splash from './screens/Splash';
 const Stack = createNativeStackNavigator();
 const Index = () => {
   return (
@@ -22,16 +23,21 @@ const Index = () => {
           translucent={true}
         />
         <Stack.Navigator
-          initialRouteName="Details"
+          initialRouteName="Splash"
           screenOptions={{headerShown: false}}>
           <Stack.Screen
-            name="Details"
-            component={Details}
+            name="Splash"
+            component={Splash}
             options={{headerShown: false}}
           />
           <Stack.Screen
             name="Home"
             component={Home}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Details"
+            component={Details}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
