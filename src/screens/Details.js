@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, ScrollView, StyleSheet, Alert} from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Alert,
+  RefreshControl,
+} from 'react-native';
 import Banner from '../components/Banner';
 import CallApi from '../services/CallApi';
 import Genres from '../components/Genres';
@@ -10,9 +16,17 @@ import Whenloading from '../components/WhenLoading';
 const Details = ({route, navigation}) => {
   const {id} = route.params;
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [refreshing, setRefreshing] = React.useState(false);
 
+  const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +42,7 @@ const Details = ({route, navigation}) => {
   }, [setData]);
   return (
     <>
-      {errorMessage && Alert.alert(errorMessage)}
+      {errorMessage && Alert.alert('error', errorMessage)}
       <View
         style={{
           flex: 1,
@@ -37,7 +51,11 @@ const Details = ({route, navigation}) => {
         }}>
         <Headerdetail props={{navigation: navigation, data: data}} />
         {!loading ? (
-          <ScrollView style={{flex: 1}}>
+          <ScrollView
+            style={{flex: 1}}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
             <Banner props={{data: data}} />
             <Genres props={{data: data}} />
             <Synopsis props={{data: data}} />

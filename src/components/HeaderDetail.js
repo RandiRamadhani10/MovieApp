@@ -25,7 +25,7 @@ const Headerdetail = ({props}) => {
       <TouchableOpacity
         style={style.back}
         onPress={() => {
-          props.navigation.navigate('Home');
+          props.navigation.replace('Home');
         }}>
         <Icon name="arrow-left" size={20} color="white" />
       </TouchableOpacity>
